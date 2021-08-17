@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <center><h1 style="color: rgb(219, 219, 219); background-color: #54585D; height: 50px; margin-top: -10px; margin-left: -10px; margin-right: -10px;">Product</h1></center>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/e96d4d2673.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div class="card">
-        <table style="width: 80%; border: 1;">
+        <table style="width: 80%; border: 1;" id="table">
             <thead>
                 <tr>
                     <td>İsim</td>
@@ -18,16 +20,16 @@
                     <td>Aktif</td>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="products">
                 <tr>
                     <td>Mouse</td>
-                    <td>1000</td>
+                    <td>199.99</td>
                     <td>M</td>
                     <td>Aktif</td>
                 </tr>
                 <tr>
                     <td>Keyboard</td>
-                    <td>100</td>
+                    <td>440</td>
                     <td>K</td>
                     <td>Pasif</td>
                 </tr>
@@ -51,6 +53,11 @@
             <input type="checkbox" checked="checked">
             <span class="checkmark" id="check"></span>
         </label>
+        <br>
+        <button class="button"><span><i class="fas fa-save"></i> </span></button>
+        <button class="button" style="background-color: red;"><span><i class="fas fa-trash-alt"></i> </span></button>
+        <button class="button" style="background-color: #54585D; "><span><i class="fas fa-pen"></i> </span></button>
     </form>
 </body>
+<script src ="product.js" type="text/Javascript"></script>
 </html>
