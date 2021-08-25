@@ -10,55 +10,52 @@
     <script src="https://kit.fontawesome.com/e96d4d2673.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src ="product.js" type="text/Javascript"></script>
+    
 </head>
 <body>
+    <br><br>    
+    
     <div class="card">
-        <table style="width: 80%; border: 1;" id="table">
+        <!-- <button>sdfsdf</button> -->
+        <center>
+        
+        <table style="width: 80%; border: 1;" id="myTable">
+            
             <thead>
                 <tr>
                     <td>İsim</td>
                     <td>Fiyat</td>
                     <td>Code</td>
                     <td>Aktif</td>
+                    <td style="width: 130px;"></td>
                 </tr>
             </thead>
-            <tbody id="products">
-                <tr>
-                    <td>Mouse</td>
-                    <td>199.99</td>
-                    <td>M</td>
-                    <td>Aktif</td>
-                </tr>
-                <tr>
-                    <td>Keyboard</td>
-                    <td>440</td>
-                    <td>K</td>
-                    <td>Pasif</td>
-                </tr>
-            </tbody>
+            <tbody id="productTable"></tbody>
+        </center>
         </table>
     </div>
-    <br>
-    <form>
-        <label for="pname">Ürünün Adı : </label>
-        <input type="text" id="pname" name="productname" placeholder="Ad..." style="width: 25%;">
 
-        <label for="price">Ürünün Fiyatı : </label>
-        <input type="text" id="price" name="unitprice" placeholder="Fiyat..." style="width: 12%;">
+    <br><br><br>
+    <center>
+    <form id="formId", method="POST", action="">
+        <label>Ürünün Adı : </label>
+        <input type="text" id="name" placeholder="Ad..." style="width: 15%;">
 
-        <label for="cname">Kod : </label>
-        <input type="text" id="cname" name="code" style="width: 8%;">
-        
+        <label>Ürünün Fiyatı : </label>
+        <input type="text" id="unitPrice" placeholder="Fiyat..." style="width: 12%;">
 
+        <label>Kod : </label>
+        <input type="text" id="code" style="width: 8%;">
+    
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Aktif : &nbsp;&nbsp;
         <label class="container" style="margin-top: 15px;">
-            <input type="checkbox" checked="checked">
+            <input type="checkbox" checked="checked", name="active">
             <span class="checkmark" id="check"></span>
-        </label>
-        <br>
-        <button class="button"><span><i class="fas fa-save"></i> </span></button>
-        <button class="button" style="background-color: red;"><span><i class="fas fa-trash-alt"></i> </span></button>
-        <button class="button" style="background-color: #54585D; "><span><i class="fas fa-pen"></i> </span></button>
+        </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    
     </form>
+    <button class="button" onclick="addProduct()" ><span><i class="fas fa-save"></i> </span></button>
+</center>
+
 </body>
 </html>

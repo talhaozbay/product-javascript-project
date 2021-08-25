@@ -99,9 +99,9 @@ select {
     }
 
     .button {
-        padding: 15px 25px;
+        padding: 5px 15px;
         font-size: 24px;
-        text-align: center;
+        /* text-align: center; */
         cursor: pointer;
         outline: none;
         color: #fff;
@@ -128,14 +128,14 @@ select {
     }
 
     .button:hover span {
-        padding-right: 25px;
-        padding-left: 25px;
+        padding-right: 5px;
+        padding-left: 5px;
 
     }
 
     .button:hover span:after {
         opacity: 1;
-        right: 0;
+        right: 1;
     }
 
     .button:active {
