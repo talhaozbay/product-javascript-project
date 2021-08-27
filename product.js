@@ -1,5 +1,6 @@
 var items = [];
-var itemIndex = 1;
+var saveOrUpdate = false;
+var productId;
 
 function getProduct() {
     $.getJSON("http://localhost:8080/product", function (data) {
@@ -11,39 +12,68 @@ function getProduct() {
             items += "<td id = 'productCode'>" + val.code + "</td>";
             items += "<td id = 'productActive'>" + val.active + "</td>";
             items += "<td>" + '<button class="button" onclick = "toDelete(' + val.productId + ')" style="background-color: rgb(204, 0, 0);"><span><i class="fas fa-trash-alt"></i> </span></button>' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '<button class="button" onclick = "update(' + val.productId + ')" style="background-color: #54585D; "><span><i class="fas fa-pen"></i> </span></button>' + "</td>";
-            itemIndex++;
             items += "</tr>";
         });
         $("#productTable").html(items);
         items = [];
-        itemIndex = 1;
         console.log(data);
     })
 }
 
 function addProduct() {
-    var postItems = {
-        name: $('#name').val(),
-        unitprice: $('#unitPrice').val(),
-        code: $('#code').val(),
-        active: $('#active').val()
+
+
+    if (productId == null) {
+        let postItems = {
+            name: $('#name').val(),
+            unitprice: $('#unitPrice').val(),
+            code: $('#code').val(),
+            active: $('#active').prop()
+        }
+        console.log(postItems);
+        $.ajax({
+                url: "http://localhost:8080/product/",
+                type: "POST",
+                data: JSON.stringify(postItems),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    deleteall();
+                    getProduct();
+                }
+            })
+            .fail(function () {
+                alert('error');
+            })
+        empty();
+    } else {
+        let postItems = {
+            productId: productId,
+            name: $('#name').val(),
+            unitprice: $('#unitPrice').val(),
+            code: $('#code').val(),
+            active: $('#active').prop()
+        }
+        console.log(postItems);
+        $.ajax({
+                url: "http://localhost:8080/product/",
+                type: "PUT",
+                data: JSON.stringify(postItems),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    deleteall();
+                    getProduct();
+                }
+            })
+            .fail(function () {
+                alert('error');
+            })
+            productId = null;
+        empty();
     }
-    console.log(postItems);
-    $.ajax({
-            url: "http://localhost:8080/product/",
-            type: "POST",
-            data: JSON.stringify(postItems),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                deleteall();
-                getProduct();
-            }
-        })
-        .fail(function () {
-            alert('error');
-        })
-    empty();
+
+
 }
 
 function toDelete(id) {
@@ -54,8 +84,7 @@ function toDelete(id) {
         data: id,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        success: function (data) {
-        }
+        success: function (data) {}
     })
     console.log("deleted : " + id);
 }
@@ -66,6 +95,7 @@ function deleteall() {
 
 function update(id) {
     writeUpdate(id);
+    productId = id;
 }
 
 function empty() {
