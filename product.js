@@ -28,8 +28,9 @@ function addProduct() {
             name: $('#name').val(),
             unitprice: $('#unitPrice').val(),
             code: $('#code').val(),
-            active: $('#active').prop()
+            active: $("#active").prop
         }
+        console.log($('#active').is('checked'));
         console.log(postItems);
         $.ajax({
                 url: "http://localhost:8080/product/",
@@ -77,7 +78,7 @@ function addProduct() {
 }
 
 function toDelete(id) {
-    $('#' + id).remove();
+    // $('#' + id).remove();
     $.ajax({
         url: "http://localhost:8080/product/" + id,
         type: "DELETE",
@@ -86,6 +87,8 @@ function toDelete(id) {
         contentType: "application/json; charset=utf-8",
         success: function (data) {}
     })
+    deleteall();
+    getProduct();
     console.log("deleted : " + id);
 }
 
