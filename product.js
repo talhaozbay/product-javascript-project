@@ -1,36 +1,36 @@
-var items = [];
-var saveOrUpdate = false;
+var productList = [];
 var productId;
-
 function getProduct() {
     $.getJSON("http://localhost:8080/product", function (data) {
-        $.each(data, function (key, val) {
+        var items = "";
+        productList = data;
+        $.each(productList, function (key, val) {
             console.log(val.productId);
             items += "<tr id ='" + val.productId + "'" + "class = 'myTableTr'>";
             items += "<td id = 'productName'>" + val.name + "</td>";
             items += "<td id = 'productUnitPrice'>" + val.unitprice + "</td>";
             items += "<td id = 'productCode'>" + val.code + "</td>";
             items += "<td id = 'productActive'>" + val.active + "</td>";
-            items += "<td>" + '<button class="button" onclick = "toDelete(' + val.productId + ')" style="background-color: rgb(204, 0, 0);"><span><i class="fas fa-trash-alt"></i> </span></button>' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '<button class="button" onclick = "update(' + val.productId + ')" style="background-color: #54585D; "><span><i class="fas fa-pen"></i> </span></button>' + "</td>";
+            items += "<td>" + '<button class="button" onclick = "deleteProduct(' + val.productId + ')" style="background-color: rgb(204, 0, 0);"><span><i class="fas fa-trash-alt"></i> </span></button>' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '<button class="button" onclick = "update(' + val.productId + ')" style="background-color: #54585D; "><span><i class="fas fa-pen"></i> </span></button>' + "</td>";
             items += "</tr>";
         });
         $("#productTable").html(items);
-        items = [];
         console.log(data);
     })
 }
 
 function addProduct() {
 
-
+    $('#textbox1').val('no');
     if (productId == null) {
         let postItems = {
             name: $('#name').val(),
             unitprice: $('#unitPrice').val(),
             code: $('#code').val(),
-            active: $("#active").prop
+            // active: $("#active").val()
+            active: $('#check').is(':checked')
         }
-        console.log($('#active').is('checked'));
+        console.log($('#check').is(':checked'))
         console.log(postItems);
         $.ajax({
                 url: "http://localhost:8080/product/",
@@ -39,7 +39,6 @@ function addProduct() {
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    deleteall();
                     getProduct();
                 }
             })
@@ -53,43 +52,50 @@ function addProduct() {
             name: $('#name').val(),
             unitprice: $('#unitPrice').val(),
             code: $('#code').val(),
-            active: $('#active').prop()
+            active: $('#check').is(':checked')  
         }
         console.log(postItems);
         $.ajax({
                 url: "http://localhost:8080/product/",
+                async: false,
                 type: "PUT",
                 data: JSON.stringify(postItems),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    deleteall();
                     getProduct();
                 }
             })
-            .fail(function () {
-                alert('error');
-            })
-            productId = null;
+        productId = null;
         empty();
     }
 
 
 }
 
-function toDelete(id) {
+function saveOrUpdate() {
+//
+if(id==null || id == "") {
+    addProduct()
+}
+else {
+    update()
+}
+}
+
+function deleteProduct(id) {
     // $('#' + id).remove();
+    console.log("delete product");
     $.ajax({
         url: "http://localhost:8080/product/" + id,
+        async: false,
         type: "DELETE",
         data: id,
-        dataType: "json",
         contentType: "application/json; charset=utf-8",
-        success: function (data) {}
+        success: function () {}
     })
-    deleteall();
-    getProduct();
     console.log("deleted : " + id);
+    getProduct();
 }
 
 function deleteall() {
